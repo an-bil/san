@@ -6,108 +6,65 @@
 <title>Portal Analityka Celnego</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-        background-color: #f4f6f9;
-        color: #333;
-    }
+header {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
 
-    header {
-        background: #003366;
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
 
-    nav {
-        background: #0055a4;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 
-    nav a {
-        color: white;
-        text-decoration: none;
-        padding: 15px 20px;
-        transition: 0.3s;
-    }
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
 
-    nav a:hover {
-        background: #003366;
-    }
+button {
+    background: #0055a4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-    .container {
-        max-width: 1300px;
-        margin: 20px auto;
-        padding: 20px;
-    }
+button:hover {
+    background: #003366;
+}
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-        gap: 20px;
-    }
+.result {
+    margin-top: 10px;
+    padding: 10px;
+    background: #eef5ff;
+}
 
-    .card {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .card h3 {
-        color: #003366;
-        margin-bottom: 10px;
-    }
-
-    input, select {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-    }
-
-    button {
-        background: #0055a4;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        margin-top: 10px;
-        border-radius: 6px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #003366;
-    }
-
-    .result {
-        margin-top: 15px;
-        padding: 10px;
-        background: #eef5ff;
-        border-radius: 6px;
-    }
-
-    footer {
-        margin-top: 30px;
-        background: #003366;
-        color: white;
-        text-align: center;
-        padding: 15px;
-    }
-
-    .status {
-        color: green;
-        font-weight: bold;
-    }
+footer {
+    text-align: center;
+    background: #003366;
+    color: white;
+    padding: 10px;
+}
 </style>
 </head>
 
@@ -115,96 +72,24 @@
 
 <header>
     <h1>Portal Analityka Celnego</h1>
-    <p>TARIC • Sankcje • Antydumping • OSINT • Analiza Podmiotów</p>
+    <p>TARIC • Sankcje • OSINT</p>
 </header>
-
-<nav>
-    <a href="#">Dashboard</a>
-    <a href="#">TARIC</a>
-    <a href="#">Sankcje</a>
-    <a href="#">OSINT</a>
-    <a href="#">Raporty</a>
-</nav>
 
 <div class="container">
 
-<div class="grid">
+    <div class="card">
+        <h2>Wyszukiwanie kodu CN/TARIC</h2>
 
-<div class="card">
-    <h3>Wyszukiwanie kodu CN/TARIC</h3>
+        <input type="text" id="kod" placeholder="np. 39261000">
 
-    <input type="text" id="taric" placeholder="np. 39261000">
+        <button onclick="sprawdzKod()">
+            Sprawdź
+        </button>
 
-    <button onclick="szukajTaric()">
-        Sprawdź
-    </button>
-
-    <div id="wynikTaric" class="result">
-        Wprowadź kod.
+        <div id="wynik" class="result">
+            Wprowadź kod CN.
+        </div>
     </div>
-</div>
-
-<div class="card">
-    <h3>Analiza Podmiotu</h3>
-
-    <input type="text" id="firma" placeholder="Nazwa firmy">
-
-    <button onclick="analizujFirme()">
-        Analizuj
-    </button>
-
-    <div id="wynikFirma" class="result">
-        Oczekiwanie na dane.
-    </div>
-</div>
-
-<div class="card">
-    <h3>Kontrola Sankcyjna</h3>
-
-    <input type="text" id="kraj" placeholder="Kraj">
-
-    <button onclick="sprawdzSankcje()">
-        Sprawdź
-    </button>
-
-    <div id="wynikSankcje" class="result">
-        Brak danych.
-    </div>
-</div>
-
-<div class="card">
-    <h3>Cła Antydumpingowe</h3>
-
-    <input type="text" id="kodAd" placeholder="Kod CN">
-
-    <button onclick="sprawdzAD()">
-        Weryfikuj
-    </button>
-
-    <div id="wynikAD" class="result">
-        Brak danych.
-    </div>
-</div>
-
-<div class="card">
-    <h3>Statystyki Analiz</h3>
-
-    <p>Wykonane analizy:</p>
-    <h2 id="licznik">0</h2>
-</div>
-
-<div class="card">
-    <h3>Status Integracji</h3>
-
-    <ul>
-        <li>ISZTAR API: <span class="status">Gotowe do podłączenia</span></li>
-        <li>TARIC UE: <span class="status">Gotowe do podłączenia</span></li>
-        <li>OpenSanctions: <span class="status">Gotowe do podłączenia</span></li>
-        <li>KRS API: <span class="status">Gotowe do podłączenia</span></li>
-    </ul>
-</div>
-
-</div>
 
 </div>
 
@@ -213,58 +98,14 @@
 </footer>
 
 <script>
+function sprawdzKod() {
 
-let licznik = 0;
+    let kod = document.getElementById("kod").value;
 
-function zwiekszLicznik() {
-    licznik++;
-    document.getElementById("licznik").innerText = licznik;
+    document.getElementById("wynik").innerHTML =
+        "<strong>Kod:</strong> " + kod +
+        "<br>Miejsce na integrację z ISZTAR/TARIC.";
 }
-
-function szukajTaric() {
-
-    let kod = document.getElementById("taric").value;
-
-    document.getElementById("wynikTaric").innerHTML =
-        "<b>Kod:</b> " + kod +
-        "<br>Tu można podłączyć API ISZTAR lub TARIC.";
-
-    zwiekszLicznik();
-}
-
-function analizujFirme() {
-
-    let firma = document.getElementById("firma").value;
-
-    document.getElementById("wynikFirma").innerHTML =
-        "<b>Firma:</b> " + firma +
-        "<br>Tu można podłączyć KRS, VIES, OpenCorporates lub własną bazę.";
-
-    zwiekszLicznik();
-}
-
-function sprawdzSankcje() {
-
-    let kraj = document.getElementById("kraj").value;
-
-    document.getElementById("wynikSankcje").innerHTML =
-        "<b>Kraj:</b> " + kraj +
-        "<br>Tu można podłączyć OpenSanctions oraz listy UE.";
-
-    zwiekszLicznik();
-}
-
-function sprawdzAD() {
-
-    let kod = document.getElementById("kodAd").value;
-
-    document.getElementById("wynikAD").innerHTML =
-        "<b>Kod:</b> " + kod +
-        "<br>Tu można sprawdzić środki antydumpingowe z TARIC.";
-
-    zwiekszLicznik();
-}
-
 </script>
 
 </body>
